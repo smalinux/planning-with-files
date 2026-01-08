@@ -2,10 +2,11 @@
 
 > **Work like Manus** — the AI agent company Meta just acquired for **$2 billion**.
 
-A Claude Code skill that transforms your workflow to use persistent markdown files for planning, progress tracking, and knowledge storage — the exact pattern that made Manus worth billions.
+A Claude Code plugin containing an [Agent Skill](https://code.claude.com/docs/en/skills) that transforms your workflow to use persistent markdown files for planning, progress tracking, and knowledge storage — the exact pattern that made Manus worth billions.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-blue)](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills)
+[![Claude Code Plugin](https://img.shields.io/badge/Claude%20Code-Plugin-blue)](https://code.claude.com/docs/en/plugins.md)
+[![Claude Code Skill](https://img.shields.io/badge/Claude%20Code-Skill-green)](https://code.claude.com/docs/en/skills)
 
 ## Star History
 
@@ -54,26 +55,44 @@ notes.md          → Store research and findings
 
 ## Installation
 
-### Option 1: Clone directly (Recommended)
+### As a Claude Code Plugin (Recommended)
+
+Install directly using the Claude Code CLI:
 
 ```bash
-# Navigate to your Claude Code skills directory
-cd ~/.claude/skills  # or your custom skills path
-
-# Clone this skill
-git clone https://github.com/OthmanAdi/planning-with-files.git
+claude plugin add planning-with-files@OthmanAdi
+claude plugin install planning-with-files@OthmanAdi
 ```
 
-### Option 2: Manual installation
+### Manual Installation
 
-1. Download or copy the `planning-with-files` folder
-2. Place it in your Claude Code skills directory:
-   - macOS/Linux: `~/.claude/skills/`
-   - Windows: `%USERPROFILE%\.claude\skills\`
+Clone or copy this repository into your project's `.claude/plugins/` directory:
+
+```bash
+# Option 1: Clone into plugins directory
+mkdir -p .claude/plugins
+git clone https://github.com/OthmanAdi/planning-with-files.git .claude/plugins/planning-with-files
+
+# Option 2: Add as git submodule
+git submodule add https://github.com/OthmanAdi/planning-with-files.git .claude/plugins/planning-with-files
+
+# Option 3: Use --plugin-dir flag
+git clone https://github.com/OthmanAdi/planning-with-files.git
+claude --plugin-dir ./planning-with-files
+```
+
+### Legacy Installation (Skills Only)
+
+Copy the `skills/` directory contents into your `.claude/skills/` folder:
+
+```bash
+git clone https://github.com/OthmanAdi/planning-with-files.git
+cp -r planning-with-files/skills/* ~/.claude/skills/
+```
 
 ### Verify Installation
 
-In Claude Code, the skill will automatically activate when you:
+Once installed, the skill will automatically activate when you:
 - Start complex tasks
 - Mention "planning", "organize", or "track progress"
 - Ask for structured work
@@ -128,11 +147,18 @@ This skill implements these key context engineering principles:
 
 ```
 planning-with-files/
-├── SKILL.md        # Core instructions (what Claude reads)
-├── reference.md    # Manus principles deep dive
-├── examples.md     # Real usage examples
-└── README.md       # This file
+├── .claude-plugin/
+│   └── plugin.json         # Plugin manifest (required for plugin distribution)
+├── skills/
+│   └── planning-with-files/
+│       ├── SKILL.md        # Agent Skill definition (what Claude reads)
+│       ├── reference.md    # Manus principles deep dive
+│       └── examples.md     # Real usage examples
+├── LICENSE
+└── README.md               # This file
 ```
+
+> **Note:** This repository is a **Plugin** that contains an **Agent Skill**. The plugin format (`.claude-plugin/`) enables easy distribution and installation, while the skill (`skills/planning-with-files/SKILL.md`) defines the actual behavior that Claude uses.
 
 ## When to Use
 
@@ -151,7 +177,7 @@ planning-with-files/
 ## Acknowledgments
 
 - **Manus AI** — For pioneering context engineering patterns that made this possible
-- **Anthropic** — For Claude Code and the Agent Skills framework
+- **Anthropic** — For Claude Code, the [Agent Skills](https://code.claude.com/docs/en/skills) framework and the [Plugin system](https://code.claude.com/docs/en/plugins.md)
 - Based on [Context Engineering for AI Agents](https://manus.im/de/blog/Context-Engineering-for-AI-Agents-Lessons-from-Building-Manus)
 
 ## Contributing

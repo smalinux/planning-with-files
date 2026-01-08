@@ -1,5 +1,6 @@
 ---
 name: planning-with-files
+version: "1.0.0"
 description: Transforms workflow to use Manus-style persistent markdown files for planning, progress tracking, and knowledge storage. Use when starting complex tasks, multi-step projects, research tasks, or when the user mentions planning, organizing work, tracking progress, or wants structured output.
 ---
 
